@@ -10,7 +10,6 @@ public class PlayerDatabase {
 
     public PlayerDatabase() {
         players = new ArrayList<ArcanerumCharacter>();
-        players.add(new ArcanerumCharacter("Sten"));
     }
 
     public static ArcanerumCharacter getPlayer(String name) {
@@ -20,5 +19,9 @@ public class PlayerDatabase {
             }
         }
         return null;
+    }
+
+    public static void addPlayer(ArcanerumCharacter player) {
+        players.add(player);
     }
 }

@@ -3,6 +3,9 @@ package de.arcanerum.server.handlers;
 import com.google.gson.Gson;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
+import de.arcanerum.server.game.core.ArcanerumCharacter;
+import de.arcanerum.server.game.core.World;
+import de.arcanerum.server.multiplayer.PlayerDatabase;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -11,7 +14,13 @@ import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.stream.Collectors;
 
-public class AdventureHandler implements HttpHandler {
+public class MoveHandler implements HttpHandler {
+    private World world;
+
+    public MoveHandler(World world) {
+        this.world = world;
+    }
+
     @Override
     public void handle(HttpExchange exchange) throws IOException {
         if("POST".equals(exchange.getRequestMethod())) {
@@ -29,10 +38,10 @@ public class AdventureHandler implements HttpHandler {
         String requestBody = br.lines().collect(Collectors.joining());
 
         Gson gson = new Gson();
-        AdventureRequest request = gson.fromJson(requestBody, AdventureRequest.class);
-        startAdventure(request);
+        MoveRequest request = gson.fromJson(requestBody, MoveRequest.class);
+        moveCharacter(request);
 
-        AdventureStartResponse responseObj = new AdventureStartResponse("Starting: " + request.getAdventure() + " now.");
+        MoveResponse responseObj = new MoveResponse("Moved " + request.getDirection() + ".");
         String responseJson = gson.toJson(responseObj);
 
         exchange.getResponseHeaders().set("Content-Type", "application/json");
@@ -43,34 +52,45 @@ public class AdventureHandler implements HttpHandler {
     }
 
     private void handleGet(HttpExchange exchange) throws IOException {
-        AdventureListResponse responseObj = new AdventureListResponse();
+        /*AdventureListResponse responseObj = new AdventureListResponse();
         Gson gson = new Gson();
         exchange.getResponseHeaders().set("Content-Type", "application/json");
         OutputStream os = exchange.getResponseBody();
-        os.write(gson.toJson(responseObj).getBytes());
+        os.write(gson.toJson(responseObj).getBytes());*/
     }
 
 
-    private void startAdventure(AdventureRequest request) {
-        System.out.println("Starting Adventure: " + request.getAdventure());
+    private void moveCharacter(MoveRequest request) {
+        System.out.println("Moving " + request.getPlayerName() + ": " + request.getDirection());
+        ArcanerumCharacter player = PlayerDatabase.getPlayer(request.getPlayerName());
+        this.world.movePlayer(player, request.getDirection());
     }
 
-    static class AdventureRequest {
-        private int adventure;
+    static class MoveRequest {
+        private String direction;
+        private String playerName;
 
-        public int getAdventure() {
-            return adventure;
+        public String getDirection() {
+            return direction;
         }
 
-        public void setAdventure(int adventure) {
-            this.adventure = adventure;
+        public void setDirection(String direction) {
+            this.direction = direction;
+        }
+
+        public String getPlayerName() {
+            return playerName;
+        }
+
+        public void setPlayerName(String playerName) {
+            this.playerName = playerName;
         }
     }
 
-    static class AdventureStartResponse {
+    static class MoveResponse {
         private String message;
 
-        public AdventureStartResponse(String message) {
+        public MoveResponse(String message) {
             this.message = message;
         }
 
