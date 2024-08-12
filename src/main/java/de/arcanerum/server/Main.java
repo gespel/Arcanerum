@@ -14,7 +14,7 @@ public class Main {
     public static void main(String[] args) throws IOException {
         PlayerDatabase playerDatabase = new PlayerDatabase();
         HttpServer server = HttpServer.create(new InetSocketAddress(8080), 0);
-        World w = new World(10, 10);
+        World w = new World(20, 20);
         ArcanerumPlayer player = new ArcanerumPlayer("Sten");
 
         PlayerDatabase.addPlayer(player);

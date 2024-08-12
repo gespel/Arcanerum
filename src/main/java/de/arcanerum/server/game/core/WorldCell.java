@@ -3,6 +3,10 @@ package de.arcanerum.server.game.core;
 import java.util.ArrayList;
 import java.util.List;
 
+enum CellType {
+    GRASS, FORREST, MOUNTAIN, WATER
+}
+
 public class WorldCell {
     private int x;
     private int y;

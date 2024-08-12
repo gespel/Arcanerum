@@ -1,5 +1,7 @@
 package de.arcanerum.server.game.core;
 
+import java.util.Random;
+
 public class Character {
     public String name = "";
     public String guild = "";
@@ -19,6 +21,10 @@ public class Character {
     }
     public int getNormalDamage() {
         return this.strength * 3;
+    }
+    public int getNormalDamageHit() {
+        Random r = new Random();
+        return this.getNormalDamage() + r.nextInt(this.strength);
     }
     public void printCurrentHP() {
         System.out.println(name + ": " + tempHP + "/" + getHP() + " HP");

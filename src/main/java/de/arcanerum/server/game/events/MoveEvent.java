@@ -9,7 +9,7 @@ public class MoveEvent extends Event {
     public MoveEvent(ArcanerumPlayer player) {
         this.player = player;
     }
-    public String move() {
+    public String move() throws InterruptedException {
         Random rand = new Random();
         rand.setSeed(System.currentTimeMillis());
         int z = rand.nextInt(10);

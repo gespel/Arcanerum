@@ -11,7 +11,7 @@ public class FightEvent extends Event {
         this.player = player;
     }
 
-    public FightEvent fight() {
+    public FightEvent fight() throws InterruptedException {
         String out = "";
         Enemy e = new Enemy();
         int gainExp = 0;
@@ -49,10 +49,12 @@ public class FightEvent extends Event {
         this.text = out;
         this.exp = gainExp;
         this.gold = gold;
+        player.tempHP = this.player.getHP();
         return this;
     }
 
-    private void fightStep(int nr, ArcanerumPlayer player, Enemy e) {
+    private void fightStep(int nr, ArcanerumPlayer player, Enemy e) throws InterruptedException {
+        Random r = new Random();
         if(nr == 0) {
             if(player.intelligence > e.intelligence) {
                 System.out.println("Inflicted " + player.getMagicDamage() + " magic damage to enemy!");
@@ -67,15 +69,20 @@ public class FightEvent extends Event {
         }
         else {
             if(nr % 2 == 1) {
-                System.out.println(player.getNormalDamage() + " damage to enemy!");
-                e.tempHP -= player.getNormalDamage();
+                int dmg = player.getNormalDamageHit();
+                System.out.println("Player turn:");
+                System.out.println(dmg + " damage to enemy!");
+                e.tempHP -= dmg;
                 e.printCurrentHP();
             }
             else {
-                System.out.println(e.getNormalDamage() + " damage to player!");
-                player.tempHP -= e.getNormalDamage();
+                int dmg = e.getNormalDamageHit();
+                System.out.println("Enemy turn:");
+                System.out.println(dmg + " damage to player!");
+                player.tempHP -= dmg;
                 player.printCurrentHP();
             }
         }
+        Thread.sleep(200);
     }
 }

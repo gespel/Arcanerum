@@ -25,7 +25,11 @@ public class MoveHandler implements HttpHandler {
     @Override
     public void handle(HttpExchange exchange) throws IOException {
         if("POST".equals(exchange.getRequestMethod())) {
-            handlePost(exchange);
+            try {
+                handlePost(exchange);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
         }
         else if("GET".equals(exchange.getRequestMethod())) {
             handleGet(exchange);
@@ -33,7 +37,7 @@ public class MoveHandler implements HttpHandler {
 
     }
 
-    private void handlePost(HttpExchange exchange) throws IOException {
+    private void handlePost(HttpExchange exchange) throws IOException, InterruptedException {
         InputStreamReader isr = new InputStreamReader(exchange.getRequestBody(), StandardCharsets.UTF_8);
         BufferedReader br = new BufferedReader(isr);
         String requestBody = br.lines().collect(Collectors.joining());
@@ -53,20 +57,21 @@ public class MoveHandler implements HttpHandler {
     }
 
     private void handleGet(HttpExchange exchange) throws IOException {
-        /*AdventureListResponse responseObj = new AdventureListResponse();
-        Gson gson = new Gson();
-        exchange.getResponseHeaders().set("Content-Type", "application/json");
-        OutputStream os = exchange.getResponseBody();
-        os.write(gson.toJson(responseObj).getBytes());*/
+        MoveResponse response = new MoveResponse("You can go north, south, east or west", null);
     }
 
 
-    private String moveCharacter(MoveRequest request) {
+    private String moveCharacter(MoveRequest request) throws InterruptedException {
         System.out.println("Moving " + request.getPlayerName() + ": " + request.getDirection());
         ArcanerumPlayer player = PlayerDatabase.getPlayer(request.getPlayerName());
         MoveEvent me = new MoveEvent(player);
-        this.world.movePlayer(player, request.getDirection());
-        return me.move();
+        boolean moved = this.world.movePlayer(player, request.getDirection());
+        if(moved) {
+            return me.move();
+        }
+        else {
+            return "Did not move. You are at the border of the world!";
+        }
     }
 
     static class MoveRequest {

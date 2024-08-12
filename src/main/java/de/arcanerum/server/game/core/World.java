@@ -5,9 +5,14 @@ import java.util.List;
 
 public class World {
     private List<List<WorldCell>> world;
+    private int height;
+    private int width;
 
     public World(int worldWidth, int worldHeight) {
+        this.height = worldHeight;
+        this.width = worldWidth;
         world = new ArrayList<>();
+
         for(int i = 0; i < worldWidth; i++) {
             this.world.add(new ArrayList<>());
             for(int j = 0; j < worldHeight; j++) {
@@ -46,28 +51,44 @@ public class World {
         return null;
     }
 
-    public void movePlayer(ArcanerumPlayer player, String direction) {
+    public boolean movePlayer(ArcanerumPlayer player, String direction) {
         int x = 0, x_new = 0, y = 0, y_new = 0;
+        boolean moved = false;
         x = this.getPlayerWorldCell(player).getX();
         y = this.getPlayerWorldCell(player).getY();
         x_new = x;
         y_new = y;
         switch(direction) {
             case "north":
-                y_new--;
+                if(y >= 1) {
+                    y_new--;
+                    moved = true;
+                }
                 break;
             case "south":
-                y_new++;
+                if(y <= this.height - 2) {
+                    y_new++;
+                    moved = true;
+                }
                 break;
             case "west":
-                x_new--;
+                if(x >= 1) {
+                    x_new--;
+                    moved = true;
+                }
                 break;
             case "east":
-                x_new++;
+                if(x <= this.width - 2) {
+                    x_new++;
+                    moved = true;
+                }
                 break;
         }
+        if(!moved)
+            return false;
         this.getCell(x_new, y_new).addPlayer(player);
         this.getCell(x, y).removePlayer(player);
         this.printMapNumPlayers();
+        return true;
     }
 }
