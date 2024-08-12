@@ -4,17 +4,9 @@ package de.arcanerum.server.game.core;
 //14 - 22 Uhr
 //0 - 6 Uhr
 //6 - 10:30 Uhr
-public class ArcanerumCharacter {
-    public String name;
-    public String guild;
-    public int level;
-    public int strength;
-    public int dexterity;
-    public int constitution;
-    public int intelligence;
-    private int experience;
+public class ArcanerumPlayer extends Character {
 
-    public ArcanerumCharacter(String name) {
+    public ArcanerumPlayer(String name) {
         this.level = 1;
         this.name = name;
         this.guild = "";
@@ -34,6 +26,10 @@ public class ArcanerumCharacter {
         if(this.experience >= (this.level*this.level) + 10) {
             this.experience -= (this.level*this.level) + 10;
             this.level++;
+            this.strength += 1;
+            this.dexterity += 1;
+            this.constitution += 1;
+            this.intelligence += 1;
         }
     }
 }

@@ -22,7 +22,7 @@ public class World {
         return this.world.get(x).get(y);
     }
 
-    public void addPlayerToCell(ArcanerumCharacter player, int x, int y) {
+    public void addPlayerToCell(ArcanerumPlayer player, int x, int y) {
         this.world.get(x).get(y).addPlayer(player);
     }
 
@@ -35,7 +35,7 @@ public class World {
         }
     }
 
-    public WorldCell getPlayerWorldCell(ArcanerumCharacter player) {
+    public WorldCell getPlayerWorldCell(ArcanerumPlayer player) {
         for(List<WorldCell> row : this.world) {
             for(WorldCell cell : row) {
                 if(cell.getPlayers().contains(player)) {
@@ -46,7 +46,7 @@ public class World {
         return null;
     }
 
-    public void movePlayer(ArcanerumCharacter player, String direction) {
+    public void movePlayer(ArcanerumPlayer player, String direction) {
         int x = 0, x_new = 0, y = 0, y_new = 0;
         x = this.getPlayerWorldCell(player).getX();
         y = this.getPlayerWorldCell(player).getY();

@@ -6,7 +6,7 @@ import java.util.List;
 public class WorldCell {
     private int x;
     private int y;
-    private List<ArcanerumCharacter> players = new ArrayList<>();
+    private List<ArcanerumPlayer> players = new ArrayList<>();
 
     public WorldCell(int x, int y) {
         this.x = x;
@@ -18,13 +18,13 @@ public class WorldCell {
     public int getY() {
         return y;
     }
-    public void addPlayer(ArcanerumCharacter player) {
+    public void addPlayer(ArcanerumPlayer player) {
         players.add(player);
     }
-    public void removePlayer(ArcanerumCharacter player) {
+    public void removePlayer(ArcanerumPlayer player) {
         players.remove(player);
     }
-    public List<ArcanerumCharacter> getPlayers() {
+    public List<ArcanerumPlayer> getPlayers() {
         return this.players;
     }
 }

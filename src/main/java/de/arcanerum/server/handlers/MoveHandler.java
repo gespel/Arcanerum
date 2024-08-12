@@ -3,8 +3,9 @@ package de.arcanerum.server.handlers;
 import com.google.gson.Gson;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
-import de.arcanerum.server.game.core.ArcanerumCharacter;
+import de.arcanerum.server.game.core.ArcanerumPlayer;
 import de.arcanerum.server.game.core.World;
+import de.arcanerum.server.game.events.MoveEvent;
 import de.arcanerum.server.multiplayer.PlayerDatabase;
 
 import java.io.BufferedReader;
@@ -39,9 +40,9 @@ public class MoveHandler implements HttpHandler {
 
         Gson gson = new Gson();
         MoveRequest request = gson.fromJson(requestBody, MoveRequest.class);
-        moveCharacter(request);
+        String eventText = moveCharacter(request);
 
-        MoveResponse responseObj = new MoveResponse("Moved " + request.getDirection() + ".");
+        MoveResponse responseObj = new MoveResponse("Moved " + request.getDirection() + ".", eventText);
         String responseJson = gson.toJson(responseObj);
 
         exchange.getResponseHeaders().set("Content-Type", "application/json");
@@ -60,10 +61,12 @@ public class MoveHandler implements HttpHandler {
     }
 
 
-    private void moveCharacter(MoveRequest request) {
+    private String moveCharacter(MoveRequest request) {
         System.out.println("Moving " + request.getPlayerName() + ": " + request.getDirection());
-        ArcanerumCharacter player = PlayerDatabase.getPlayer(request.getPlayerName());
+        ArcanerumPlayer player = PlayerDatabase.getPlayer(request.getPlayerName());
+        MoveEvent me = new MoveEvent(player);
         this.world.movePlayer(player, request.getDirection());
+        return me.move();
     }
 
     static class MoveRequest {
@@ -89,33 +92,11 @@ public class MoveHandler implements HttpHandler {
 
     static class MoveResponse {
         private String message;
+        private String event;
 
-        public MoveResponse(String message) {
+        public MoveResponse(String message, String event) {
             this.message = message;
-        }
-
-        public String getMessage() {
-            return message;
-        }
-
-        public void setMessage(String message) {
-            this.message = message;
-        }
-    }
-
-    static class AdventureListResponse {
-        private String message;
-
-        public AdventureListResponse(String message) {
-            this.message = message;
-        }
-
-        public String getMessage() {
-            return message;
-        }
-
-        public void setMessage(String message) {
-            this.message = message;
+            this.event = event;
         }
     }
 }
