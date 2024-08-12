@@ -1,7 +1,7 @@
 package de.arcanerum.server.game.events;
 
 import java.util.Random;
-import de.arcanerum.server.game.core.ArcanerumPlayer;
+import de.arcanerum.server.game.core.characters.ArcanerumPlayer;
 
 public class MoveEvent extends Event {
     private ArcanerumPlayer player;

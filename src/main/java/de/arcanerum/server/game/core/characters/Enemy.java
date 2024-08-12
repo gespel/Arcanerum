@@ -1,4 +1,4 @@
-package de.arcanerum.server.game.core;
+package de.arcanerum.server.game.core.characters;
 
 import java.util.Random;
 

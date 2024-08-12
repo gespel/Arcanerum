@@ -3,8 +3,8 @@ package de.arcanerum.server.handlers;
 import com.google.gson.Gson;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
-import de.arcanerum.server.game.core.ArcanerumPlayer;
-import de.arcanerum.server.game.core.World;
+import de.arcanerum.server.game.core.characters.ArcanerumPlayer;
+import de.arcanerum.server.game.core.world.World;
 import de.arcanerum.server.game.events.MoveEvent;
 import de.arcanerum.server.multiplayer.PlayerDatabase;
 

@@ -1,4 +1,6 @@
-package de.arcanerum.server.game.core;
+package de.arcanerum.server.game.core.world;
+
+import de.arcanerum.server.game.core.characters.ArcanerumPlayer;
 
 import java.util.ArrayList;
 import java.util.List;

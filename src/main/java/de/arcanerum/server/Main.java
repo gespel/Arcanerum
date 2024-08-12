@@ -1,8 +1,8 @@
 package de.arcanerum.server;
 
 import com.sun.net.httpserver.HttpServer;
-import de.arcanerum.server.game.core.ArcanerumPlayer;
-import de.arcanerum.server.game.core.World;
+import de.arcanerum.server.game.core.characters.ArcanerumPlayer;
+import de.arcanerum.server.game.core.world.World;
 import de.arcanerum.server.handlers.MoveHandler;
 import de.arcanerum.server.handlers.CharacterHandler;
 import de.arcanerum.server.multiplayer.PlayerDatabase;

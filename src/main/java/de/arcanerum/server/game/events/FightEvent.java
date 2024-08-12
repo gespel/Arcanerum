@@ -1,7 +1,7 @@
 package de.arcanerum.server.game.events;
 
-import de.arcanerum.server.game.core.ArcanerumPlayer;
-import de.arcanerum.server.game.core.Enemy;
+import de.arcanerum.server.game.core.characters.ArcanerumPlayer;
+import de.arcanerum.server.game.core.characters.Enemy;
 import java.util.Random;
 
 public class FightEvent extends Event {
