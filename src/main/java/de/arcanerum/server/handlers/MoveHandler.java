@@ -5,6 +5,7 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import de.arcanerum.server.game.core.characters.ArcanerumPlayer;
 import de.arcanerum.server.game.core.world.World;
+import de.arcanerum.server.game.core.world.WorldSimulation;
 import de.arcanerum.server.game.events.MoveEvent;
 import de.arcanerum.server.multiplayer.PlayerDatabase;
 
@@ -13,13 +14,14 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class MoveHandler implements HttpHandler {
-    private World world;
+    private WorldSimulation worldSim;
 
-    public MoveHandler(World world) {
-        this.world = world;
+    public MoveHandler(WorldSimulation worldSim) {
+        this.worldSim = worldSim;
     }
 
     @Override
@@ -62,12 +64,29 @@ public class MoveHandler implements HttpHandler {
 
 
     private String moveCharacter(MoveRequest request) throws InterruptedException {
-        System.out.println("Moving " + request.getPlayerName() + ": " + request.getDirection());
         ArcanerumPlayer player = PlayerDatabase.getPlayer(request.getPlayerName());
-        MoveEvent me = new MoveEvent(player);
-        boolean moved = this.world.movePlayer(player, request.getDirection());
+
+        int xAdd = 0;
+        int yAdd = 0;
+        switch (request.getDirection()) {
+            case "north" -> yAdd = -1;
+            case "south" -> yAdd = 1;
+            case "east" -> xAdd = 1;
+            case "west" -> xAdd = -1;
+        }
+        boolean moved = false;
+        if(worldSim.areValidCellCoordinates(
+                worldSim.getWorld().getPlayerWorldCell(player).getX()+xAdd,
+                worldSim.getWorld().getPlayerWorldCell(player).getY()+yAdd
+        )) {
+            MoveEvent me = new MoveEvent(player, request.getDirection());
+            worldSim.addMoveEvent(me);
+            moved = true;
+        }
+        //boolean moved = me.move();
+
         if(moved) {
-            return me.move();
+            return "Moved successfully!";
         }
         else {
             return "Did not move. You are at the border of the world!";

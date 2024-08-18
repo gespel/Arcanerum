@@ -3,6 +3,7 @@ package de.arcanerum.server;
 import com.sun.net.httpserver.HttpServer;
 import de.arcanerum.server.game.core.characters.ArcanerumPlayer;
 import de.arcanerum.server.game.core.world.World;
+import de.arcanerum.server.game.core.world.WorldSimulation;
 import de.arcanerum.server.handlers.MoveHandler;
 import de.arcanerum.server.handlers.CharacterHandler;
 import de.arcanerum.server.multiplayer.PlayerDatabase;
@@ -15,6 +16,8 @@ public class Main {
         PlayerDatabase playerDatabase = new PlayerDatabase();
         HttpServer server = HttpServer.create(new InetSocketAddress(8080), 0);
         World w = new World(20, 20);
+        WorldSimulation ws = new WorldSimulation(w);
+        ws.startSimulation();
         ArcanerumPlayer player = new ArcanerumPlayer("Sten");
 
         PlayerDatabase.addPlayer(player);
@@ -23,7 +26,7 @@ public class Main {
 
         server.setExecutor(null);
         server.createContext("/", new CharacterHandler(w));
-        server.createContext("/move", new MoveHandler(w));
+        server.createContext("/move", new MoveHandler(ws));
         server.start();
     }
 }

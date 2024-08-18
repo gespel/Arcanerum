@@ -83,6 +83,6 @@ public class FightEvent extends Event {
                 player.printCurrentHP();
             }
         }
-        Thread.sleep(200);
+        //Thread.sleep(200);
     }
 }

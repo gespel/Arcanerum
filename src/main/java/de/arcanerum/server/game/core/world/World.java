@@ -93,4 +93,11 @@ public class World {
         this.printMapNumPlayers();
         return true;
     }
+
+    public int getHeight() {
+        return height;
+    }
+    public int getWidth() {
+        return width;
+    }
 }
