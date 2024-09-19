@@ -1,10 +1,9 @@
-package de.arcanerum.server.handlers;
+package de.arcanerum.server.httphandlers;
 
 import com.google.gson.Gson;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import de.arcanerum.server.game.core.characters.ArcanerumPlayer;
-import de.arcanerum.server.game.core.world.World;
 import de.arcanerum.server.game.core.world.WorldSimulation;
 import de.arcanerum.server.game.events.MoveEvent;
 import de.arcanerum.server.multiplayer.PlayerDatabase;
@@ -14,7 +13,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class MoveHandler implements HttpHandler {

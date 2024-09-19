@@ -22,6 +22,7 @@ public class PlayerDatabase {
     }
 
     public static void addPlayer(ArcanerumPlayer player) {
+        System.out.println("adding player " + player.name);
         players.add(player);
     }
 }

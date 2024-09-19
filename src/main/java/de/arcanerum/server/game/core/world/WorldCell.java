@@ -5,18 +5,16 @@ import de.arcanerum.server.game.core.characters.ArcanerumPlayer;
 import java.util.ArrayList;
 import java.util.List;
 
-enum CellType {
-    GRASS, FORREST, MOUNTAIN, WATER
-}
-
 public class WorldCell {
     private int x;
     private int y;
     private List<ArcanerumPlayer> players = new ArrayList<>();
+    CellType cellType;
 
-    public WorldCell(int x, int y) {
+    public WorldCell(int x, int y, CellType type) {
         this.x = x;
         this.y = y;
+        this.cellType = type;
     }
     public int getX() {
         return x;

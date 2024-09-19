@@ -1,6 +1,7 @@
 package de.arcanerum.server.game.core.world;
 
 import de.arcanerum.server.game.core.characters.ArcanerumPlayer;
+import de.arcanerum.server.httpresponses.MapResponse;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +19,7 @@ public class World {
         for(int i = 0; i < worldWidth; i++) {
             this.world.add(new ArrayList<>());
             for(int j = 0; j < worldHeight; j++) {
-                this.world.get(i).add(new WorldCell(i, j));
+                this.world.get(i).add(new WorldCell(i, j, CellType.GRASS));
             }
         }
         System.out.println("World height: " + this.world.size());
@@ -40,6 +41,10 @@ public class World {
             }
             System.out.println();
         }
+    }
+
+    public MapResponse getMapResponse() {
+        return new MapResponse(this);
     }
 
     public WorldCell getPlayerWorldCell(ArcanerumPlayer player) {
@@ -99,5 +104,8 @@ public class World {
     }
     public int getWidth() {
         return width;
+    }
+    public List<List<WorldCell>> getWorldCells() {
+        return world;
     }
 }
