@@ -12,16 +12,16 @@ public class MoveEvent extends Event {
         this.direction = direction;
         this.player = player;
     }
-    public String moveEncounter() throws InterruptedException {
+    public String move() throws InterruptedException {
         //boolean moved = this.world.movePlayer(player, request.getDirection());
         Random rand = new Random();
         rand.setSeed(System.currentTimeMillis());
         int z = rand.nextInt(10);
         String out = "";
 
-        if(z >= 0) {
+        if(z >= 6) {
             //FIGHT!
-            FightEvent fe = new FightEvent(player);
+            RandomFightEvent fe = new RandomFightEvent(player);
             out = fe.fight().text;
         }
         else {

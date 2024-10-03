@@ -4,14 +4,14 @@ import de.arcanerum.server.game.core.characters.ArcanerumPlayer;
 import de.arcanerum.server.game.core.characters.Enemy;
 import java.util.Random;
 
-public class FightEvent extends Event {
+public class RandomFightEvent extends Event {
     private ArcanerumPlayer player;
 
-    public FightEvent(ArcanerumPlayer player) {
+    public RandomFightEvent(ArcanerumPlayer player) {
         this.player = player;
     }
 
-    public FightEvent fight() throws InterruptedException {
+    public RandomFightEvent fight() throws InterruptedException {
         String out = "";
         Enemy e = new Enemy();
         int gainExp = 0;

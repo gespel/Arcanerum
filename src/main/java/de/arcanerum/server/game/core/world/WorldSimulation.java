@@ -40,16 +40,16 @@ public class WorldSimulation {
     }
 
     private void tickMoveEvents() throws InterruptedException {
-        Iterator<MoveEvent> iterator = moveEvents.iterator();
+        Iterator<MoveEvent> moveEventIterator = moveEvents.iterator();
 
-        while(iterator.hasNext()) {
-            MoveEvent moveEvent = iterator.next();
+        while(moveEventIterator.hasNext()) {
+            MoveEvent moveEvent = moveEventIterator.next();
             moveEvent.timeCost--;
             if(moveEvent.timeCost == 0) {
-                moveEvent.moveEncounter();
+                moveEvent.move();
                 world.movePlayer(moveEvent.getPlayer(), moveEvent.getDirection());
                 System.out.println("Removed player move event from player " + moveEvent.getPlayer().name);
-                iterator.remove();
+                moveEventIterator.remove();
             }
         }
     }
