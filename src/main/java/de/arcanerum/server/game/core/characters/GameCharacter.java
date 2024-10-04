@@ -3,7 +3,7 @@ package de.arcanerum.server.game.core.characters;
 import java.util.Random;
 import java.util.UUID;
 
-public class Character {
+public class GameCharacter {
     public String name = "";
     public String guild = "";
     public int level = 0;
@@ -34,5 +34,21 @@ public class Character {
     }
     public void addGold(int gold) {
         this.gold += gold;
+    }
+
+    public void addExperience(int experience) {
+        this.experience += experience;
+        checkLevel();
+    }
+
+    private void checkLevel() {
+        if(this.experience >= (this.level*this.level) + 10) {
+            this.experience -= (this.level*this.level) + 10;
+            this.level++;
+            this.strength += 1;
+            this.dexterity += 1;
+            this.constitution += 1;
+            this.intelligence += 1;
+        }
     }
 }

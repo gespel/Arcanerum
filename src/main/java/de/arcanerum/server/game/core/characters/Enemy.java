@@ -2,7 +2,7 @@ package de.arcanerum.server.game.core.characters;
 
 import java.util.Random;
 
-public class Enemy extends Character {
+public class Enemy extends GameCharacter {
     private Random rand = new Random();
 
     public Enemy() {

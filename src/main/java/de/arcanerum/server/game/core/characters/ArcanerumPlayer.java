@@ -4,7 +4,7 @@ package de.arcanerum.server.game.core.characters;
 //14 - 22 Uhr
 //0 - 6 Uhr
 //6 - 10:30 Uhr
-public class ArcanerumPlayer extends Character {
+public class ArcanerumPlayer extends GameCharacter {
 
     public ArcanerumPlayer(String name) {
         this.level = 1;
@@ -16,21 +16,5 @@ public class ArcanerumPlayer extends Character {
         this.constitution = 10;
         this.intelligence = 10;
         this.gold = 1000;
-    }
-
-    public void addExperience(int experience) {
-        this.experience += experience;
-        checkLevel();
-    }
-
-    private void checkLevel() {
-        if(this.experience >= (this.level*this.level) + 10) {
-            this.experience -= (this.level*this.level) + 10;
-            this.level++;
-            this.strength += 1;
-            this.dexterity += 1;
-            this.constitution += 1;
-            this.intelligence += 1;
-        }
     }
 }
