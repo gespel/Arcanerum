@@ -2,6 +2,7 @@ package de.arcanerum.server.game.events;
 
 import java.util.Random;
 import de.arcanerum.server.game.core.characters.ArcanerumPlayer;
+import de.arcanerum.server.game.core.world.CellType;
 import de.arcanerum.server.game.core.world.WorldSimulation;
 import de.arcanerum.server.multiplayer.PlayerDatabase;
 
@@ -9,6 +10,7 @@ public class MoveEvent extends Event {
     private ArcanerumPlayer player;
     private String direction;
     public int timeCost = 1;
+    public int fightProbability;
 
 
     public MoveEvent(String playerName, String direction, WorldSimulation worldSim) throws InterruptedException {
@@ -29,6 +31,9 @@ public class MoveEvent extends Event {
                 worldSim.getWorld().getPlayerWorldCell(player).getX()+xAdd,
                 worldSim.getWorld().getPlayerWorldCell(player).getY()+yAdd
         )) {
+            if(worldSim.getWorld().getPlayerWorldCell(player).getCellType() == CellType.GRASS) {
+                this.fightProbability = 0;
+            }
             worldSim.addMoveEvent(this);
             moved = true;
         }
@@ -41,7 +46,7 @@ public class MoveEvent extends Event {
         int z = rand.nextInt(10);
         EventOutcome outcome = null;
 
-        if(z >= 6) {
+        if(z >= 10 - this.fightProbability) {
             //FIGHT!
             RandomFightEvent fe = new RandomFightEvent(player);
 
