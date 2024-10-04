@@ -12,6 +12,7 @@ public class Character {
     public int intelligence = 0;
     public int experience = 0;
     public int tempHP = 0;
+    public int gold = 0;
 
     public int getHP() {
         return this.constitution * 10;
@@ -28,5 +29,8 @@ public class Character {
     }
     public void printCurrentHP() {
         System.out.println(name + ": " + tempHP + "/" + getHP() + " HP");
+    }
+    public void addGold(int gold) {
+        this.gold += gold;
     }
 }

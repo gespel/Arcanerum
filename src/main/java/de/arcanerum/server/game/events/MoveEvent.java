@@ -3,7 +3,6 @@ package de.arcanerum.server.game.events;
 import java.util.Random;
 import de.arcanerum.server.game.core.characters.ArcanerumPlayer;
 import de.arcanerum.server.game.core.world.WorldSimulation;
-import de.arcanerum.server.httphandlers.MoveHandler;
 import de.arcanerum.server.multiplayer.PlayerDatabase;
 
 public class MoveEvent extends Event {
@@ -34,21 +33,23 @@ public class MoveEvent extends Event {
             moved = true;
         }
     }
-    public MoveEventOutcome executeEvent() throws InterruptedException {
+    @Override
+    public EventOutcome executeEvent() throws InterruptedException {
         //boolean moved = this.world.movePlayer(player, request.getDirection());
         Random rand = new Random();
         rand.setSeed(System.currentTimeMillis());
         int z = rand.nextInt(10);
-        MoveEventOutcome outcome = null;
+        EventOutcome outcome = null;
 
         if(z >= 6) {
             //FIGHT!
             RandomFightEvent fe = new RandomFightEvent(player);
-            if(fe.fight().won) {
-                outcome = MoveEventOutcome.FIGHT_WON;
+
+            if(fe.executeEvent() == EventOutcome.FIGHT_WON) {
+                outcome = EventOutcome.FIGHT_WON;
             }
             else {
-                outcome = MoveEventOutcome.FIGHT_LOST;
+                outcome = EventOutcome.FIGHT_LOST;
             }
         }
 

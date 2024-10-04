@@ -6,6 +6,7 @@ import de.arcanerum.server.game.Game;
 import de.arcanerum.server.game.core.characters.ArcanerumPlayer;
 import de.arcanerum.server.game.core.world.World;
 import de.arcanerum.server.game.core.world.WorldSimulation;
+import de.arcanerum.server.httphandlers.BuildHandler;
 import de.arcanerum.server.httphandlers.MapHandler;
 import de.arcanerum.server.httphandlers.MoveHandler;
 import de.arcanerum.server.httphandlers.CharacterHandler;
@@ -23,6 +24,7 @@ public class Main {
         server.createContext("/", new CharacterHandler(game.getWorld()));
         server.createContext("/move", new MoveHandler(game.getWorldSimulation()));
         server.createContext("/map", new MapHandler(game.getWorld()));
+        server.createContext("/build", new BuildHandler(game.getWorldSimulation()));
         server.start();
     }
 }

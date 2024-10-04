@@ -108,4 +108,11 @@ public class World {
     public List<List<WorldCell>> getWorldCells() {
         return world;
     }
+    public List<WorldCell> getWorldCellsFlat() {
+        List<WorldCell> flat = new ArrayList<>();
+        for(List<WorldCell> row : this.world) {
+            flat.addAll(row);
+        }
+        return flat;
+    }
 }

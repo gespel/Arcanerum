@@ -1,6 +1,6 @@
 package de.arcanerum.server.game.events;
 
-public enum MoveEventOutcome {
+public enum EventOutcome {
     FIGHT_WON, FIGHT_LOST, NOTHING, CITY_ENTERED, CITY_WALKING;
 
     public String toString() {

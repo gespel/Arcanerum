@@ -15,6 +15,7 @@ public class ArcanerumPlayer extends Character {
         this.dexterity = 10;
         this.constitution = 10;
         this.intelligence = 10;
+        this.gold = 1000;
     }
 
     public void addExperience(int experience) {
