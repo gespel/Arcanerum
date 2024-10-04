@@ -9,7 +9,7 @@ public abstract class Building {
     public String id;
     public String description;
     public BuildingType buildingType;
-    public ArcanerumPlayer owner;
+    public String ownerID;
     public int locationX, locationY;
     //TODO: Guild ownerGuild;
 }

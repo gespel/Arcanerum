@@ -4,6 +4,7 @@ import de.arcanerum.server.game.core.buildings.Building;
 import de.arcanerum.server.game.core.characters.ArcanerumPlayer;
 import de.arcanerum.server.game.events.BuildEvent;
 import de.arcanerum.server.game.events.MoveEvent;
+import de.arcanerum.server.multiplayer.PlayerDatabase;
 
 import java.util.*;
 
@@ -93,7 +94,7 @@ public class WorldSimulation {
         for(WorldCell wc : this.world.getWorldCellsFlat()) {
             if(!wc.getBuildings().isEmpty()) {
                 for(Building b : wc.getBuildings()) {
-                    ArcanerumPlayer ap = b.owner;
+                    ArcanerumPlayer ap = PlayerDatabase.getPlayerById(b.ownerID);
                     ap.addGold(b.dailyIncome);
                 }
             }

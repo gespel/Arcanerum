@@ -6,7 +6,7 @@ import java.util.UUID;
 
 public class ResidentialBuilding extends Building {
     public ResidentialBuilding(ArcanerumPlayer owner, int x, int y) {
-        this.owner = owner;
+        this.ownerID = owner.id;
         this.buildingType = BuildingType.RESIDENTIAL_BUILDING;
         this.name = "Residential Building";
         this.dailyCost = 0;

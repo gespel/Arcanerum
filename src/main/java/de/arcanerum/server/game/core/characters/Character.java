@@ -1,6 +1,7 @@
 package de.arcanerum.server.game.core.characters;
 
 import java.util.Random;
+import java.util.UUID;
 
 public class Character {
     public String name = "";
@@ -13,6 +14,7 @@ public class Character {
     public int experience = 0;
     public int tempHP = 0;
     public int gold = 0;
+    public String id = UUID.randomUUID().toString();
 
     public int getHP() {
         return this.constitution * 10;

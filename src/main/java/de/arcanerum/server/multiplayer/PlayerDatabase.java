@@ -25,4 +25,13 @@ public class PlayerDatabase {
         System.out.println("adding player " + player.name);
         players.add(player);
     }
+
+    public static ArcanerumPlayer getPlayerById(String id) {
+        for(ArcanerumPlayer player : players) {
+            if(player.id.equals(id)) {
+                return player;
+            }
+        }
+        return null;
+    }
 }

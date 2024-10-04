@@ -3,15 +3,19 @@ package de.arcanerum.server.httphandlers;
 import com.google.gson.Gson;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
+import de.arcanerum.server.game.core.buildings.Building;
 import de.arcanerum.server.game.core.characters.ArcanerumPlayer;
 import de.arcanerum.server.game.core.world.World;
+import de.arcanerum.server.game.core.world.WorldCell;
 import de.arcanerum.server.multiplayer.PlayerDatabase;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CharacterHandler implements HttpHandler {
-    private World world;
+    private static World world;
     public CharacterHandler(World world) {
         this.world = world;
     }
@@ -46,31 +50,18 @@ public class CharacterHandler implements HttpHandler {
         private ArcanerumPlayer character;
         private int x;
         private int y;
+        private List<Building> ownedBuildings = new ArrayList<>();
 
         public CharacterResponse(ArcanerumPlayer character, int x, int y) {
             this.character = character;
             this.x = x;
             this.y = y;
-        }
 
-        public void setCharacter(ArcanerumPlayer character) {
-            this.character = character;
-        }
-        public void setX(int x) {
-            this.x = x;
-        }
-        public void setY(int y) {
-            this.y = y;
-        }
-
-        public ArcanerumPlayer getCharacter() {
-            return character;
-        }
-        public int getX() {
-            return x;
-        }
-        public int getY() {
-            return y;
+            for(WorldCell wc : world.getWorldCellsFlat()) {
+                for(Building building : wc.getBuildings()) {
+                    ownedBuildings.add(building);
+                }
+            }
         }
     }
 }
