@@ -1,7 +1,7 @@
 package de.arcanerum.server.game.core.world;
 
 import de.arcanerum.server.game.core.characters.ArcanerumPlayer;
-import de.arcanerum.server.httpresponses.MapResponse;
+import de.arcanerum.server.http.responses.MapResponse;
 
 import java.util.ArrayList;
 import java.util.List;

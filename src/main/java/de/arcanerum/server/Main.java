@@ -1,16 +1,11 @@
 package de.arcanerum.server;
 
-import com.google.gson.Gson;
 import com.sun.net.httpserver.HttpServer;
 import de.arcanerum.server.game.Game;
-import de.arcanerum.server.game.core.characters.ArcanerumPlayer;
-import de.arcanerum.server.game.core.world.World;
-import de.arcanerum.server.game.core.world.WorldSimulation;
-import de.arcanerum.server.httphandlers.BuildHandler;
-import de.arcanerum.server.httphandlers.MapHandler;
-import de.arcanerum.server.httphandlers.MoveHandler;
-import de.arcanerum.server.httphandlers.CharacterHandler;
-import de.arcanerum.server.multiplayer.PlayerDatabase;
+import de.arcanerum.server.http.handlers.BuildHandler;
+import de.arcanerum.server.http.handlers.MapHandler;
+import de.arcanerum.server.http.handlers.MoveHandler;
+import de.arcanerum.server.http.handlers.CharacterHandler;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;

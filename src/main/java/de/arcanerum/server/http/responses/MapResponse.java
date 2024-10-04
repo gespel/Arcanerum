@@ -1,4 +1,4 @@
-package de.arcanerum.server.httpresponses;
+package de.arcanerum.server.http.responses;
 
 import de.arcanerum.server.game.core.world.World;
 import de.arcanerum.server.game.core.world.WorldCell;

@@ -1,4 +1,4 @@
-package de.arcanerum.server.httphandlers;
+package de.arcanerum.server.http.handlers;
 
 import com.google.gson.Gson;
 import com.sun.net.httpserver.HttpExchange;

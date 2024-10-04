@@ -1,11 +1,10 @@
-package de.arcanerum.server.httphandlers;
+package de.arcanerum.server.http.handlers;
 
 import com.google.gson.Gson;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import de.arcanerum.server.game.core.world.WorldSimulation;
 import de.arcanerum.server.game.events.BuildEvent;
-import de.arcanerum.server.game.events.MoveEvent;
 
 import java.io.BufferedReader;
 import java.io.IOException;
