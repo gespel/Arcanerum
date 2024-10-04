@@ -47,11 +47,8 @@ public class Fight {
     }
 
     public boolean fight() throws InterruptedException {
-        String out = "";
-        Enemy e = new Enemy();
         boolean won = false;
-        int gainExp = 0;
-        int gold = 0;
+
 
         this.character1.tempHP = this.character1.getHP();
         character2.tempHP = character2.getHP();
@@ -69,16 +66,6 @@ public class Fight {
                 fighting = false;
             }
             i++;
-        }
-
-        if(won) {
-            Random r = new Random();
-            gainExp = r.nextInt(10) + 10;
-            character1.addExperience(gainExp);
-            out = "Fight won!! Gained " + gainExp + " experience.";
-        }
-        else {
-            out = "You lost!";
         }
 
         character1.tempHP = this.character1.getHP();
