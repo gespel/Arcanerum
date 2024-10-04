@@ -11,19 +11,17 @@ import java.net.InetSocketAddress;
 public class Game {
     World world;
     WorldSimulation worldSimulation;
-    ArcanerumPlayer player;
     PlayerDatabase playerDatabase;
 
     public Game() {
         this.playerDatabase = new PlayerDatabase();
-
-        this.world = new World(5, 5);
+        this.world = new World(50, 50);
         this.worldSimulation = new WorldSimulation(this.world);
         this.worldSimulation.startSimulation();
-        this.player = new ArcanerumPlayer("Sten");
-        PlayerDatabase.addPlayer(player);
-        this.world.addPlayerToCell(player, 2, 2);
-        this.world.printMapNumPlayers();
+
+        ArcanerumPlayer tester = new ArcanerumPlayer("Sten");
+        PlayerDatabase.addPlayer(tester);
+        this.world.addPlayerToCell(tester, 2, 2);
     }
 
     public World getWorld() {
@@ -31,9 +29,6 @@ public class Game {
     }
     public WorldSimulation getWorldSimulation() {
         return worldSimulation;
-    }
-    public ArcanerumPlayer getPlayer() {
-        return player;
     }
     public PlayerDatabase getPlayerDatabase() {
         return playerDatabase;
