@@ -46,7 +46,7 @@ public class WorldSimulation {
             MoveEvent moveEvent = moveEventIterator.next();
             moveEvent.timeCost--;
             if(moveEvent.timeCost == 0) {
-                moveEvent.move();
+                moveEvent.executeEvent();
                 world.movePlayer(moveEvent.getPlayer(), moveEvent.getDirection());
                 System.out.println("Removed player move event from player " + moveEvent.getPlayer().name);
                 moveEventIterator.remove();

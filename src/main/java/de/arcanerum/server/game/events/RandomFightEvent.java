@@ -6,6 +6,7 @@ import java.util.Random;
 
 public class RandomFightEvent extends Event {
     private ArcanerumPlayer player;
+    public boolean won = false;
 
     public RandomFightEvent(ArcanerumPlayer player) {
         this.player = player;
@@ -20,7 +21,6 @@ public class RandomFightEvent extends Event {
         this.player.tempHP = this.player.getHP();
         e.tempHP = e.getHP();
         boolean fighting = true;
-        boolean won = false;
         int i = 0;
 
         while(fighting) {

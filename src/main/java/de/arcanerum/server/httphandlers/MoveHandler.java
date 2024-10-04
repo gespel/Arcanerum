@@ -44,9 +44,9 @@ public class MoveHandler implements HttpHandler {
 
         Gson gson = new Gson();
         MoveRequest request = gson.fromJson(requestBody, MoveRequest.class);
-        String eventText = moveCharacter(request);
+        MoveEvent me = new MoveEvent(request.getPlayerName(), request.getDirection(), worldSim);
 
-        MoveResponse responseObj = new MoveResponse("Moved " + request.getDirection() + ".", eventText);
+        MoveResponse responseObj = new MoveResponse("Moved " + request.getDirection() + ".", "queued");
         String responseJson = gson.toJson(responseObj);
 
         exchange.getResponseHeaders().set("Content-Type", "application/json");
@@ -61,37 +61,9 @@ public class MoveHandler implements HttpHandler {
     }
 
 
-    private String moveCharacter(MoveRequest request) throws InterruptedException {
-        ArcanerumPlayer player = PlayerDatabase.getPlayer(request.getPlayerName());
 
-        int xAdd = 0;
-        int yAdd = 0;
-        switch (request.getDirection()) {
-            case "north" -> yAdd = -1;
-            case "south" -> yAdd = 1;
-            case "east" -> xAdd = 1;
-            case "west" -> xAdd = -1;
-        }
-        boolean moved = false;
-        if(worldSim.areValidCellCoordinates(
-                worldSim.getWorld().getPlayerWorldCell(player).getX()+xAdd,
-                worldSim.getWorld().getPlayerWorldCell(player).getY()+yAdd
-        )) {
-            MoveEvent me = new MoveEvent(player, request.getDirection());
-            worldSim.addMoveEvent(me);
-            moved = true;
-        }
-        //boolean moved = me.move();
 
-        if(moved) {
-            return "Moved successfully!";
-        }
-        else {
-            return "Did not move. You are at the border of the world!";
-        }
-    }
-
-    static class MoveRequest {
+    public static class MoveRequest {
         private String direction;
         private String playerName;
 

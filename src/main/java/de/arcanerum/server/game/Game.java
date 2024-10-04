@@ -17,7 +17,7 @@ public class Game {
     public Game() {
         this.playerDatabase = new PlayerDatabase();
 
-        this.world = new World(20, 20);
+        this.world = new World(5, 5);
         this.worldSimulation = new WorldSimulation(this.world);
         this.worldSimulation.startSimulation();
         this.player = new ArcanerumPlayer("Sten");
